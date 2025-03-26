@@ -1,0 +1,106 @@
+nav {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 10px 20px;
+    border-bottom: 1px solid #eee;
+    font-family: sans-serif;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.logo img {
+    height: 30px;
+    margin-right: 5px;
+}
+
+.logo span {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-left: 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #007bff;
+}
+
+.search-and-auth {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.search-and-auth input[type="text"] {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+.search-and-auth button {
+    background: none;
+    color: #007bff;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.search-and-auth button:hover {
+    color: #0056b3;
+}
+
+/* Responsive Design (Corrected) */
+@media (max-width: 768px) {
+    nav {
+        flex-wrap: wrap; /* Allow wrapping */
+        justify-content: flex-start; /* Align to the start */
+    }
+
+    .nav-links {
+        width: 100%; /* Take full width */
+        margin-top: 10px; /* Add top margin */
+        padding-left: 0; /* Remove left padding */
+    }
+
+    .nav-links li {
+        margin-left: 0; /* Remove left margin */
+        margin-bottom: 5px; /* Add bottom margin */
+        display: block; /* Stack links vertically */
+    }
+
+    .search-and-auth {
+        margin-left: 0; /* Remove left margin */
+        width: 100%; /* Take full width */
+    }
+
+    .search-and-auth input[type="text"],
+    .search-and-auth button {
+        width: 100%; /* Take full width */
+        margin-right: 0; /* Remove right margin */
+        margin-bottom: 5px; /* Add bottom margin */
+    }
+}
