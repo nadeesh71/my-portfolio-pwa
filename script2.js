@@ -20,7 +20,7 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
 
 document.querySelectorAll('.add-to-fav').forEach(button => {
     button.addEventListener('click', function() {
-        const product = this.parentElement;
+        const product = this.parentElement; 
         const productId = product.dataset.id;
         const productName = product.querySelector('h3').textContent;
 
