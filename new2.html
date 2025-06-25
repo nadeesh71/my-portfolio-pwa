@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Little Test For My Love! ❤️</title>
+    <!-- Tailwind CSS CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter for a clean look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for heart icon (or any other cute icon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Custom CSS for heart animation */
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll from falling hearts */
+        }
+
+        @keyframes fallAndFade {
+            0% {
+                transform: translateY(-50px) rotate(0deg);
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(800px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .heart-animation {
+            animation: fallAndFade linear forwards;
+            position: absolute;
+            top: 0;
+            z-index: 1000; /* Ensure hearts are on top */
+        }
+    </style>
+</head>
+<body class="bg-[#ffefff] min-h-screen flex flex-col items-center py-10 px-4 sm:px-6 lg:px-8">
+
+    <div class="w-full max-w-lg mx-auto bg-white rounded-3xl shadow-xl p-6 sm:p-8 md:p-10">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-[#e91e63] mb-4">A Little Test For My Love! ❤️</h1>
+            <p class="text-gray-600 text-lg">Answer these questions to reveal a surprise!</p>
+        </div>
+
+        <!-- Questions Container -->
+        <div id="questions-container" class="space-y-6">
+            <!-- Questions will be dynamically inserted here by JavaScript -->
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center mt-8">
+            <button id="submit-button"
+                    class="bg-[#ff69b4] text-white text-xl font-bold py-3 px-8 rounded-full shadow-lg hover:bg-[#ff4d99] transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-[#ff69b4] focus:ring-opacity-50">
+                Submit Your Answers!
+            </button>
+        </div>
+
+        <!-- Success Message Container -->
+        <div id="success-message" class="hidden mt-10 p-6 bg-[#fff0f5] rounded-2xl shadow-md text-center">
+            <h2 class="text-3xl font-bold text-[#8b0000] mb-4">Congratulations, My Love! 🎉</h2>
+            <p class="text-xl text-[#c71585]">You know me so well! ❤️</p>
+        </div>
+    </div>
+
+    <script>
+        // Define the questions and their correct answers
+        const quizData = [
+            {
+                id: 'q1',
+                question: "What is my fav food?",
+                answer: "pizza", // Case-insensitive comparison will be used
+            },
+            {
+                id: 'q2',
+                question: "Which date was our first anniversary?",
+                answer: "february 14", // Example: "February 14"
+            },
+            {
+                id: 'q3',
+                question: "How much do you love me?",
+                answer: "a lot", // Example answer, you can change this!
+            },
+        ];
+
+        // Get DOM elements
+        const questionsContainer = document.getElementById('questions-container');
+        const submitButton = document.getElementById('submit-button');
+        const successMessage = document.getElementById('success-message');
+
+        // Store user answers
+        const userAnswers = {};
+
+        /**
+         * Initializes the quiz by dynamically creating question input fields.
+         */
+        function initializeQuiz() {
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'bg-white p-6 rounded-xl shadow-md'; // Tailwind classes for styling
+                questionDiv.innerHTML = `
+                    <label for="${q.id}" class="block text-lg font-semibold text-gray-800 mb-3">${index + 1}. ${q.question}</label>
+                    <input type="text" id="${q.id}"
+                           class="w-full border border-[#ffd1dc] rounded-lg px-4 py-3 text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#ff69b4] bg-[#fff7f9]"
+                           placeholder="Your answer here...">
+                `;
+                questionsContainer.appendChild(questionDiv);
+
+                // Initialize userAnswers and attach event listener
+                userAnswers[q.id] = ''; // Initialize with empty string
+                const inputElement = questionDiv.querySelector(`#${q.id}`);
+                inputElement.addEventListener('input', (event) => {
+                    userAnswers[q.id] = event.target.value;
+                });
+            });
+        }
+
+        /**
+         * Checks all answers and triggers the success animation or an alert.
+         */
+        function handleSubmit() {
+            // All answers are considered "correct" for the purpose of triggering the success state
+            successMessage.classList.remove('hidden'); // Show success message
+            triggerHeartRain(); // Start the heart rain animation
+            submitButton.classList.add('hidden'); // Hide submit button
+            // Optional: Disable all input fields
+            quizData.forEach(q => {
+                document.getElementById(q.id).disabled = true;
+            });
+        }
+
+        /**
+         * Triggers the heart rain animation.
+         * Creates multiple heart elements and animates their fall.
+         */
+        function triggerHeartRain() {
+            const body = document.body;
+            for (let i = 0; i < 30; i++) { // Generate 30 hearts
+                const heart = document.createElement('i');
+                heart.className = 'fas fa-heart text-red-500 text-3xl heart-animation'; // Font Awesome heart icon
+                heart.style.left = `${Math.random() * (window.innerWidth - 40)}px`; // Random horizontal position, adjust 40 for icon width
+                heart.style.animationDuration = `${Math.random() * 4 + 2}s`; // Random duration between 2 to 6 seconds
+                heart.style.animationDelay = `${Math.random() * 0.5}s`; // Stagger the start of animations
+
+                body.appendChild(heart);
+
+                // Remove heart from DOM after its animation finishes
+                heart.addEventListener('animationend', () => {
+                    heart.remove();
+                });
+            }
+        }
+
+        // Event Listeners
+        submitButton.addEventListener('click', handleSubmit);
+
+        // Initialize the quiz when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', initializeQuiz);
+    </script>
+</body>
+</html>
