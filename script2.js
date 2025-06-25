@@ -61,3 +61,7 @@ function updateCart() {
 payButton.addEventListener('click', function() {
     window.location.href = 'checkout.html'; // Redirect to checkout page
 });
+
+
+
+ 
